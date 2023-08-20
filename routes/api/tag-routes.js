@@ -67,19 +67,11 @@ router.put("/:id", async (req, res) => {
       const productTags = await ProductTag.findAll({
         where: { tag_id: req.params.id },
       });
-      // res.status(200).json(productTags);
 
       const productTagIds = productTags.map(({ product_id }) => product_id);
-      // res.status(200).json(productTagIds);
-      // res.status(200).json(productTagIds);
 
       const newProductTags = req.body.productIds
         .filter((productIds) => {
-          // console.log(!productTagIds.includes(productIds));
-          // console.log(productTagIds);
-          // console.log(productIds);
-
-          // return !productTagIds.includes(productIds);
           return productIds;
         })
         .map((productIds) => {
@@ -88,25 +80,15 @@ router.put("/:id", async (req, res) => {
             tag_id: req.params.id,
           };
         });
-      // console.log(productTags);
-      // res.status(200).json(productTags);
-
-      // res.status(200).json(newProductTags);
 
       const productTagsToRemove = productTags
         .filter(({ product_id }) => {
-          // console.log(product_id);
-          // console.log(req.body.productIds);
-          // return product_id;
-
           return !req.body.productIds.includes(product_id);
         })
         .map(({ id }) => {
-          // console.log(id);
           return id;
         });
 
-      // res.status(200).json(newProductTags);
       console.log(productTagsToRemove);
       console.log(newProductTags);
 
